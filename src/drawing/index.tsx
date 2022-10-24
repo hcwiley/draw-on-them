@@ -5,12 +5,14 @@ import {
   Path,
   Skia,
   SkiaView,
+  ToolType,
   TouchInfo,
   useDrawCallback,
   useTouchHandler,
 } from '@shopify/react-native-skia';
 import React, {useCallback, useRef, useState} from 'react';
 import {
+  Alert,
   LayoutChangeEvent,
   SafeAreaView,
   useWindowDimensions,
@@ -29,13 +31,19 @@ const Drawing = () => {
   const completedPaths = useDrawingStore(state => state.completedPaths);
   const setCompletedPaths = useDrawingStore(state => state.setCompletedPaths);
   const stroke = useDrawingStore(state => state.stroke);
+  const strokeWidth = useDrawingStore(state => state.strokeWidth);
   const [canvasHeight, setCanvasHeight] = useState(400);
 
   const onDrawingActive = useCallback((touchInfo: ExtendedTouchInfo) => {
     const {x, y} = touchInfo;
     if (!currentPath.current?.path) return;
+
+    
     if (touchState.current) {
       currentPath.current.path.lineTo(x, y);
+      // TODO: make path variable thickness based on force
+      // let _strokeWidth = strokeWidth * Math.pow((0.5 + touchInfo.force), 5);
+      // currentPath.current.paint.setStrokeWidth(_strokeWidth);
       if (currentPath.current) {
         canvas.current?.drawPath(
           currentPath.current.path,
@@ -48,6 +56,10 @@ const Drawing = () => {
   const onDrawingStart = useCallback(
     (touchInfo: TouchInfo) => {
       if (currentPath.current) return;
+
+      // only respond to pencil for drawing
+      if (touchInfo.toolType != ToolType.Pencil) return;
+
       const {x, y} = touchInfo;
       currentPath.current = {
         path: Skia.Path.Make(),
@@ -111,7 +123,7 @@ const Drawing = () => {
   }, []);
 
   const onLayout = (event: LayoutChangeEvent) => {
-    setCanvasHeight(event.nativeEvent.layout.height);
+    if (canvasHeight == 400) setCanvasHeight(event.nativeEvent.layout.height);
   };
 
   return (

@@ -47,7 +47,7 @@ const Toolbar = () => {
       )}
 
       <View
-        style={[styles.toolbar, {position: 'relative', marginVertical: 12}]}>
+        style={[styles.toolbar, {position: 'absolute', marginVertical: 2}]}>
         <View
           style={{
             backgroundColor: '#f7f7f7',
