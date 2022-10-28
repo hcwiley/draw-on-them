@@ -3,6 +3,8 @@ import {
   Skia,
   StrokeCap,
   StrokeJoin,
+  SKPaint,
+  SKPath,
 } from '@shopify/react-native-skia';
 import {CurrentPath} from '../store';
 
@@ -19,7 +21,7 @@ Array.prototype.sample = function () {
  * @returns
  */
 const getPaint = (strokeWidth: number, color: string) => {
-  const paint = Skia.Paint();
+  const paint: SKPaint = Skia.Paint();
   paint.setStrokeWidth(strokeWidth);
   paint.setStrokeMiter(5);
   paint.setStyle(PaintStyle.Stroke);

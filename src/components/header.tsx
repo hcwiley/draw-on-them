@@ -1,33 +1,41 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import useDrawingStore from '../store';
+import { useDrawingContext } from '../store';
 import history from '../drawing/history';
 import utils from '../drawing/utils';
+import {saveTextToFile} from '../utils/file';
 
 const Header = () => {
+  const {
+    canvasInfo,
+    completedPaths,
+    setCompletedPaths,
+    setStroke,
+    setColor,
+    setStrokeWidth,
+  } = useDrawingContext();
+
   /**
    * Reset the canvas & draw state
    */
   const reset = () => {
-    useDrawingStore.getState().setCompletedPaths([]);
-    useDrawingStore.getState().setStroke(utils.getPaint(2, 'black'));
-    useDrawingStore.getState().setColor('black');
-    useDrawingStore.getState().setStrokeWidth(2);
+    setCompletedPaths([]);
+    setStroke(utils.getPaint(2, 'black'));
+    setColor('black');
+    setStrokeWidth(2);
     history.clear();
   };
 
   const save = () => {
-    let canvasInfo = useDrawingStore.getState().canvasInfo;
-    let paths = useDrawingStore.getState().completedPaths;
-    if (paths.length === 0) return;
+    if (completedPaths.length === 0) return;
     console.log('saving');
     if (canvasInfo?.width && canvasInfo?.height) {
-      console.log(
-        utils.makeSvgFromPaths(paths, {
-          width: canvasInfo.width,
-          height: canvasInfo.height,
-        }),
-      );
+      const svg = utils.makeSvgFromPaths(completedPaths, {
+        width: canvasInfo.width,
+        height: canvasInfo.height,
+      });
+      // save the svg as a timestamp file with YYYY-MM-DD-HH-MM-SS format
+      saveTextToFile(svg, new Date().toISOString().replace(/:/g, '-'));
     }
   };
 

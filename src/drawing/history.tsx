@@ -1,4 +1,4 @@
-import useDrawingStore, {CurrentPath} from '../store';
+import { useDrawingContext }, {CurrentPath} from '../store';
 
 const history: {
   undo: CurrentPath[];
@@ -13,7 +13,7 @@ function undo() {
   let lastPath = history.undo[history.undo.length - 1];
   history.redo.push(lastPath);
   history.undo.splice(history.undo.length - 1, 1);
-  useDrawingStore.getState().setCompletedPaths([...history.undo]);
+  useDrawingContext.getState().setCompletedPaths([...history.undo]);
 }
 
 function redo() {
@@ -21,7 +21,7 @@ function redo() {
   let lastPath = history.redo[history.redo.length - 1];
   history.redo.splice(history.redo.length - 1, 1);
   history.undo.push(lastPath);
-  useDrawingStore.getState().setCompletedPaths([...history.undo]);
+  useDrawingContext.getState().setCompletedPaths([...history.undo]);
 }
 
 function clear() {

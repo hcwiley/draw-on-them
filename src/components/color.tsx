@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import utils from '../drawing/utils';
-import useDrawingStore from '../store';
+import { useDrawingContext } from '../store';
 
 const Color = ({
   onPress,
@@ -15,7 +15,7 @@ const Color = ({
   onPress?: (event: GestureResponderEvent) => void;
   color: string;
 }) => {
-  const currentColor = useDrawingStore(state => state.color);
+  const currentColor = useDrawingContext(state => state.color);
 
   return (
     <TouchableOpacity

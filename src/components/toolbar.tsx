@@ -1,29 +1,38 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Color from '../components/color';
 import Stroke from '../components/stroke';
-import useDrawingStore from '../store';
+import {useDrawingContext} from '../store';
 import constants from '../drawing/constants';
 import utils from '../drawing/utils';
 
 const Toolbar = () => {
-  const currentColor = useDrawingStore(state => state.color);
-  const currentStrokeWidth = useDrawingStore(state => state.strokeWidth);
-  const setStrokeWidth = useDrawingStore(state => state.setStrokeWidth);
-  const setColor = useDrawingStore(state => state.setColor);
-  const setStroke = useDrawingStore(state => state.setStroke);
+  const {
+    foo,
+    getFoo,
+    setFoo,
+    strokeWidth,
+    setStrokeWidth,
+    getColor,
+    setStroke,
+  } = useDrawingContext();
   const [showStrokes, setShowStrokes] = useState(false);
 
   const onStrokeChange = (stroke: number) => {
     setStrokeWidth(stroke);
     setShowStrokes(false);
-    setStroke(utils.getPaint(stroke, currentColor));
+    setStroke(utils.getPaint(stroke, getColor()));
   };
 
   const onChangeColor = (color: string) => {
-    setColor(color);
-    setStroke(utils.getPaint(currentStrokeWidth, color));
+    setStroke(utils.getPaint(2, color));
+    console.log(`toolbar foo: ${getFoo()}`);
   };
+
+  useEffect(() => {
+    console.log(`toolbar foo: ${getFoo()}`);
+    // setFoo('drawing init');
+  }, [foo]);
 
   return (
     <>
@@ -36,18 +45,17 @@ const Toolbar = () => {
               position: 'absolute',
             },
           ]}>
-          {constants.strokes.map(stroke => (
+          {constants.strokes.map(_stroke => (
             <Stroke
-              key={stroke}
-              stroke={stroke}
-              onPress={() => onStrokeChange(stroke)}
+              key={_stroke}
+              stroke={_stroke}
+              onPress={() => onStrokeChange(_stroke)}
             />
           ))}
         </View>
       )}
 
-      <View
-        style={[styles.toolbar, {position: 'absolute', marginVertical: 2}]}>
+      <View style={[styles.toolbar, {position: 'absolute', marginVertical: 2}]}>
         <View
           style={{
             backgroundColor: '#f7f7f7',
@@ -67,7 +75,7 @@ const Toolbar = () => {
           )}
 
           <Stroke
-            stroke={currentStrokeWidth}
+            stroke={strokeWidth}
             onPress={() => setShowStrokes(!showStrokes)}
           />
         </View>

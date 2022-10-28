@@ -1,6 +1,6 @@
 import React from 'react';
 import {GestureResponderEvent, TouchableOpacity, View} from 'react-native';
-import useDrawingStore from '../store';
+import { useDrawingContext } from '../store';
 
 const Stroke = ({
   onPress,
@@ -9,7 +9,7 @@ const Stroke = ({
   onPress?: (event: GestureResponderEvent) => void;
   stroke: number;
 }) => {
-  const currentColor = useDrawingStore(state => state.color);
+  const currentColor = useDrawingContext(state => state.color);
   return (
     <TouchableOpacity
       activeOpacity={0.6}

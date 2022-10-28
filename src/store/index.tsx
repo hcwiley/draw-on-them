@@ -1,62 +1,95 @@
-import {DrawingInfo, IPaint, IPath} from '@shopify/react-native-skia';
-import create, {State} from 'zustand';
+import {DrawingInfo, Skia, SKPaint, SKPath} from '@shopify/react-native-skia';
+import React, {
+  createContext,
+  useContext,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import uuid from 'react-native-uuid';
+
 import utils from '../drawing/utils';
 
 export type CurrentPath = {
-  path: IPath;
-  paint: IPaint;
+  path: SKPath;
+  paint: SKPaint;
   color?: string;
 };
 
-interface DrawingStore extends State {
-  /**
-   * Array of completed paths for redrawing
-   */
-  completedPaths: CurrentPath[];
-  /**
-   * A function to update completed paths
-   */
-  setCompletedPaths: (completedPaths: CurrentPath[]) => void;
-  /**
-   * Current stroke
-   */
-  stroke: IPaint;
-  /**
-   * Width of the stroke
-   */
-  strokeWidth: number;
-  /**
-   * Color of the stroke
-   */
-  color: string;
-  setStrokeWidth: (strokeWidth: number) => void;
-  setColor: (color: string) => void;
-  setStroke: (stroke: IPaint) => void;
-  canvasInfo: Partial<DrawingInfo> | null;
-  setCanvasInfo: (canvasInfo: Partial<DrawingInfo>) => void;
+export const DrawingContext = createContext('drawing');
+
+export const useDrawingContext = () => useContext(DrawingContext);
+
+export function DrawingProvider({children}) {
+  const drawing = useDrawingStore();
+  return (
+    <DrawingContext.Provider value={drawing}>
+      {children}
+    </DrawingContext.Provider>
+  );
 }
 
-const useDrawingStore = create<DrawingStore>((set, get) => ({
-  completedPaths: [],
-  setCompletedPaths: completedPaths => {
-    set({completedPaths});
-  },
-  strokeWidth: 2,
-  color: 'black',
-  stroke: utils.getPaint(2, 'black'),
-  setStrokeWidth: strokeWidth => {
-    set({strokeWidth});
-  },
-  setColor: color => {
-    set({color});
-  },
-  setStroke: stroke => {
-    set({stroke});
-  },
-  canvasInfo: null,
-  setCanvasInfo: canvasInfo => {
-    set({canvasInfo});
-  },
-}));
+export const useDrawingStore = () => {
+  const [completedPaths, setCompletedPaths] = useState<CurrentPath[]>([]);
+  const [strokeObj, _setStroke] = useState<{
+    color: string;
+    strokeWidth: number;
+  }>();
+  const [canvasInfo, setCanvasInfo] = useState<Partial<DrawingInfo> | null>(
+    null,
+  );
+  // make foo a uuid
+  const [foo, _setFoo] = useState<string>(uuid.v4());
 
-export default useDrawingStore;
+  const getStroke = () => {
+    const _stroke = Skia.Paint();
+
+    console.log(
+      `get stored values: ${strokeObj.color} ${strokeObj.strokeWidth}`,
+    );
+
+    _stroke.setColor(Skia.Color(strokeObj.color));
+    _stroke.setStrokeWidth(strokeObj.strokeWidth);
+    return _stroke;
+  };
+
+  const setStroke = (_stroke: SKPaint) => {
+    // why is this being such a jerk?
+    console.log(`newStroke: ${_stroke.getColor()} ${_stroke.getStrokeWidth()}`);
+    _setStroke({
+      strokeWidth: _stroke.getStrokeWidth(),
+      color: _stroke.getColor(),
+    });
+  };
+
+  useEffect(() => {
+    // _setStroke(utils.getPaint(2, 'black'));
+    _setStroke({
+      strokeWidth: 2,
+      color: '#fe1',
+    });
+    console.log(`useDrawingStore init...`);
+  }, []);
+
+  const setFoo = (newFoo: string) => {
+    return _setFoo(newFoo);
+  };
+
+  return {
+    completedPaths,
+    setCompletedPaths,
+    getStroke,
+    setStroke,
+    strokeObj,
+    getColor: () => strokeObj?.color,
+    strokeWidth: () => getStroke().getStrokeWidth(),
+    setColor: (color: string) => getStroke().setColor(color),
+    setStrokeWidth: (width: number) => getStroke().setStrokeWidth(width),
+    canvasInfo,
+    setCanvasInfo,
+    getFoo: () => foo,
+    foo,
+    setFoo,
+  };
+};
