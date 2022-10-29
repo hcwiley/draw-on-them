@@ -1,15 +1,15 @@
 import React from 'react';
 import {GestureResponderEvent, TouchableOpacity, View} from 'react-native';
-import { useDrawingContext } from '../store';
 
 const Stroke = ({
   onPress,
   stroke,
+  color,
 }: {
   onPress?: (event: GestureResponderEvent) => void;
   stroke: number;
+  color: string;
 }) => {
-  const currentColor = useDrawingContext(state => state.color);
   return (
     <TouchableOpacity
       activeOpacity={0.6}
@@ -23,7 +23,7 @@ const Stroke = ({
       <View
         style={{
           width: 25,
-          backgroundColor: currentColor,
+          backgroundColor: color,
           height: stroke,
           borderRadius: 10,
           transform: [

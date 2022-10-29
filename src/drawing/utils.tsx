@@ -34,6 +34,21 @@ const getPaint = (strokeWidth: number, color: string) => {
   return _color;
 };
 
+function floatToHex(f: number) {
+  return Math.round(f * 255)
+    .toString(16)
+    .padStart(2, '0');
+}
+
+const skiaColorToHex = (color: SkColor) => {
+  let hex = `#`;
+  hex += floatToHex(color[0]);
+  hex += floatToHex(color[1]);
+  hex += floatToHex(color[2]);
+  // console.log(`hex: ${hex}`);
+  return hex;
+};
+
 /**
  * A function get get elevation style for android/ios.
  * @param elevation
@@ -69,13 +84,13 @@ const makeSvgFromPaths = (
 
     ${paths.map(path =>
       path.paint && path.path
-        ? `<path d="${path.path.toSVGString()}" stroke="${
-            path.color
-          }" stroke-width="${path.paint.getStrokeWidth()}" stroke-linecap="${path.paint.getStrokeCap()}" stroke-linejoin="${path.paint.getStrokeJoin()}"/>`
+        ? `<path d="${path.path.toSVGString()}" stroke="${skiaColorToHex(
+            path.paint.getColor(),
+          )}" stroke-width="${path.paint.getStrokeWidth()}" stroke-linecap="${path.paint.getStrokeCap()}" stroke-linejoin="${path.paint.getStrokeJoin()}"/>`
         : '',
     )}
     </g>
     </svg>`;
 };
 
-export default {getPaint, getElevation, makeSvgFromPaths};
+export default {getPaint, getElevation, makeSvgFromPaths, skiaColorToHex};

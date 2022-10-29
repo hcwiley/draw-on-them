@@ -22,7 +22,6 @@ import {
 } from 'react-native';
 import {useDrawingContext} from '../store';
 import Header from '../components/header';
-import history from './history';
 import Toolbar from '../components/toolbar';
 
 const Drawing = () => {
@@ -38,60 +37,67 @@ const Drawing = () => {
   // const strokeWidth = useDrawingContext(state => state.strokeWidth);
   const [canvasHeight, setCanvasHeight] = useState(400);
   const {
-    foo,
-    setFoo,
-    getFoo,
+    history,
     completedPaths,
     setCompletedPaths,
-    strokeWidth,
+    stroke,
     getStrokeWidth,
     getColor,
-    getStroke,
-    strokeObj,
+    setCanvasInfo,
   } = useDrawingContext();
 
-  const onDrawingActive = useCallback((touchInfo: ExtendedTouchInfo) => {
-    // console.log(`onDrawingActive`);
+  const onDrawingActive = useCallback(
+    (touchInfo: ExtendedTouchInfo) => {
+      // console.log(`onDrawingActive`);
 
-    const {x, y} = touchInfo;
+      const {x, y} = touchInfo;
 
-    curX.current = x;
-    curY.current = y;
+      curX.current = x;
+      curY.current = y;
 
-    if (touchInfo.toolType == ToolType.Pencil && touchState.current) {
-      skiaPath.current.path.lineTo(x, y);
-    }
-  }, []);
+      if (touchInfo.toolType == ToolType.Pencil && touchState.current) {
+        skiaPath.current.path.lineTo(x, y);
+      }
+    },
+    [stroke],
+  );
 
-  const onDrawingStart = useCallback((touchInfo: TouchInfo) => {
-    // console.log(`onDrawingStart`);
-    // only respond to pencil for drawing
-    if (touchInfo.toolType != ToolType.Pencil) return;
+  const onDrawingStart = useCallback(
+    (touchInfo: TouchInfo) => {
+      // console.log(`onDrawingStart`);
+      // only respond to pencil for drawing
+      if (touchInfo.toolType != ToolType.Pencil) return;
 
-    const {x, y} = touchInfo;
-    touchState.current = true;
+      const {x, y} = touchInfo;
+      touchState.current = true;
 
-    skiaPath.current.path.reset();
-    skiaPath.current.path.moveTo(x, y);
-    skiaPath.current.paint = getStroke().copy();
-    console.log(`set paint to ${skiaPath.current.paint.getColor()}`);
-    console.log(`set paint to ${getColor()}`);
-    console.log(`strokeObj: ${JSON.stringify(strokeObj, null, 2)}`);
-  }, []);
+      skiaPath.current.path.reset();
+      skiaPath.current.path.moveTo(x, y);
+      skiaPath.current.paint.reset();
+      skiaPath.current.paint = stroke.copy();
+    },
+    [stroke],
+  );
 
-  const onDrawingFinished = useCallback(() => {
-    // console.log(`onDrawingFinished`);
+  const onDrawingFinished = useCallback(
+    (touchInfo: TouchInfo) => {
+      // console.log(`onDrawingFinished`);
 
-    updatePaths();
-    skiaPath.current.path.reset();
-    touchState.current = false;
-  }, [completedPaths.length]);
+      if (touchInfo.toolType == ToolType.Pencil) updatePaths();
+      skiaPath.current.path.reset();
+      touchState.current = false;
+    },
+    [completedPaths.length],
+  );
 
-  const touchHandler = useTouchHandler({
-    onActive: onDrawingActive,
-    onStart: onDrawingStart,
-    onEnd: onDrawingFinished,
-  });
+  const touchHandler = useTouchHandler(
+    {
+      onActive: onDrawingActive,
+      onStart: onDrawingStart,
+      onEnd: onDrawingFinished,
+    },
+    [stroke],
+  );
 
   const updatePaths = () => {
     // if (!currentPath.current) return;
@@ -108,35 +114,24 @@ const Drawing = () => {
     // history.push(skiaPath.current);
   };
 
-  const onDraw = useDrawCallback((_canvas, info) => {
-    touchHandler(info.touches);
+  const onDraw = useDrawCallback(
+    (_canvas, info) => {
+      touchHandler(info.touches);
 
-    // if (!canvas.current) {
-    //   useDrawingContext.getState().setCanvasInfo({
-    //     width: info.width,
-    //     height: info.height,
-    //   });
-    //   // canvas.current = _canvas;
-    // }
-  }, []);
+      // if (!canvas.current) {
+      setCanvasInfo({
+        width: info.width,
+        height: info.height,
+      });
+      //   // canvas.current = _canvas;
+      // }
+    },
+    [stroke],
+  );
 
   const onLayout = (event: LayoutChangeEvent) => {
     if (canvasHeight == 400) setCanvasHeight(event.nativeEvent.layout.height);
   };
-
-  // useEffect(() => {
-  //   // setCompletedPaths(completedPaths);
-  // }, [completedPaths]);
-
-  useEffect(() => {
-    console.log(`drawing foo: ${getFoo()}`);
-    console.log(`strokeObj: ${JSON.stringify(strokeObj, null, 2)}`);
-  }, [foo, strokeObj]);
-
-  useEffect(() => {
-    console.log(`drawing before foo: ${getFoo()}`);
-    setFoo('drawing init');
-  }, []);
 
   return (
     <SafeAreaView
@@ -149,7 +144,7 @@ const Drawing = () => {
           flex: 1,
           alignItems: 'center',
         }}>
-        {/* <Header /> */}
+        <Header />
 
         <View
           onLayout={onLayout}
@@ -172,7 +167,7 @@ const Drawing = () => {
               width: width - 24,
               position: 'absolute',
             }}>
-            <Circle r={3} cx={curX} cy={curY} color="#f00" />
+            <Circle r={3} cx={curX} cy={curY} color="#fff0" />
             {completedPaths?.map(pathObj => (
               <Path
                 key={pathObj.uuid}
@@ -187,10 +182,8 @@ const Drawing = () => {
                 key={'current-path'}
                 path={Selector(skiaPath, state => state.path)}
                 //@ts-ignore
-                strokeWidth={Selector(skiaPath, state =>
-                  state.paint.getStrokeWidth(),
-                )}
-                color={Selector(skiaPath, state => state.paint.getColor())}
+                strokeWidth={Selector(skiaPath, state => getStrokeWidth())}
+                color={Selector(skiaPath, state => getColor())}
                 // color={Selector(skiaPath, state => '#f00')}
                 style="stroke"
               />

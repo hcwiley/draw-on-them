@@ -7,15 +7,8 @@ import constants from '../drawing/constants';
 import utils from '../drawing/utils';
 
 const Toolbar = () => {
-  const {
-    foo,
-    getFoo,
-    setFoo,
-    strokeWidth,
-    setStrokeWidth,
-    getColor,
-    setStroke,
-  } = useDrawingContext();
+  const {getStrokeWidth, setStrokeWidth, getColor, setStroke, stroke} =
+    useDrawingContext();
   const [showStrokes, setShowStrokes] = useState(false);
 
   const onStrokeChange = (stroke: number) => {
@@ -26,13 +19,7 @@ const Toolbar = () => {
 
   const onChangeColor = (color: string) => {
     setStroke(utils.getPaint(2, color));
-    console.log(`toolbar foo: ${getFoo()}`);
   };
-
-  useEffect(() => {
-    console.log(`toolbar foo: ${getFoo()}`);
-    // setFoo('drawing init');
-  }, [foo]);
 
   return (
     <>
@@ -49,6 +36,7 @@ const Toolbar = () => {
             <Stroke
               key={_stroke}
               stroke={_stroke}
+              color={getColor('hex')}
               onPress={() => onStrokeChange(_stroke)}
             />
           ))}
@@ -75,7 +63,8 @@ const Toolbar = () => {
           )}
 
           <Stroke
-            stroke={strokeWidth}
+            stroke={getStrokeWidth()}
+            color={getColor('hex')}
             onPress={() => setShowStrokes(!showStrokes)}
           />
         </View>

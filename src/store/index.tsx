@@ -30,66 +30,78 @@ export function DrawingProvider({children}) {
   );
 }
 
+const defaultStroke = utils.getPaint(3, '#000000');
+
 export const useDrawingStore = () => {
   const [completedPaths, setCompletedPaths] = useState<CurrentPath[]>([]);
-  const [strokeObj, _setStroke] = useState<{
-    color: string;
-    strokeWidth: number;
-  }>();
+  const [stroke, setStroke] = useState<SKPaint>(defaultStroke);
   const [canvasInfo, setCanvasInfo] = useState<Partial<DrawingInfo> | null>(
     null,
   );
-  // make foo a uuid
-  const [foo, _setFoo] = useState<string>(uuid.v4());
 
-  const getStroke = () => {
-    const _stroke = Skia.Paint();
-
-    console.log(
-      `get stored values: ${strokeObj.color} ${strokeObj.strokeWidth}`,
-    );
-
-    _stroke.setColor(Skia.Color(strokeObj.color));
-    _stroke.setStrokeWidth(strokeObj.strokeWidth);
-    return _stroke;
+  const history: {
+    undo: CurrentPath[];
+    redo: CurrentPath[];
+  } = {
+    undo: [],
+    redo: [],
   };
 
-  const setStroke = (_stroke: SKPaint) => {
-    // why is this being such a jerk?
-    console.log(`newStroke: ${_stroke.getColor()} ${_stroke.getStrokeWidth()}`);
-    _setStroke({
-      strokeWidth: _stroke.getStrokeWidth(),
-      color: _stroke.getColor(),
-    });
-  };
+  function undo(setCompletedPaths) {
+    if (history.undo.length === 0) return;
+    let lastPath = history.undo[history.undo.length - 1];
+    history.redo.push(lastPath);
+    history.undo.splice(history.undo.length - 1, 1);
+    setCompletedPaths([...history.undo]);
+  }
 
-  useEffect(() => {
-    // _setStroke(utils.getPaint(2, 'black'));
-    _setStroke({
-      strokeWidth: 2,
-      color: '#fe1',
-    });
-    console.log(`useDrawingStore init...`);
-  }, []);
+  function redo(setCompletedPaths) {
+    if (history.redo.length === 0) return;
+    let lastPath = history.redo[history.redo.length - 1];
+    history.redo.splice(history.redo.length - 1, 1);
+    history.undo.push(lastPath);
+    setCompletedPaths([...history.undo]);
+  }
 
-  const setFoo = (newFoo: string) => {
-    return _setFoo(newFoo);
-  };
+  function clear() {
+    history.undo = [];
+    history.redo = [];
+  }
+
+  function push(path: CurrentPath) {
+    history.undo.push(path);
+  }
+
+  function floatToHex(f: number) {
+    return Math.round(f * 255)
+      .toString(16)
+      .padStart(2, '0');
+  }
 
   return {
     completedPaths,
     setCompletedPaths,
-    getStroke,
     setStroke,
-    strokeObj,
-    getColor: () => strokeObj?.color,
-    strokeWidth: () => getStroke().getStrokeWidth(),
-    setColor: (color: string) => getStroke().setColor(color),
-    setStrokeWidth: (width: number) => getStroke().setStrokeWidth(width),
+    stroke,
+    getColor: (mode: string = 'Skia') => {
+      const color = stroke.getColor();
+      if (mode === 'Skia') {
+        return color;
+      } else if (mode.toLowerCase() === 'hex') {
+        return utils.skiaColorToHex(color);
+      }
+    },
+    getStrokeWidth: () => (stroke ? stroke.getStrokeWidth() : 3),
+    setColor: (color: string) => stroke.setColor(color),
+    setStrokeWidth: (width: number) => stroke.setStrokeWidth(width),
     canvasInfo,
     setCanvasInfo,
-    getFoo: () => foo,
-    foo,
-    setFoo,
+    history: {
+      history,
+      undo,
+      redo,
+      push,
+      clear,
+    },
   };
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import { useDrawingContext } from '../store';
-import history from '../drawing/history';
+import {useDrawingContext} from '../store';
 import utils from '../drawing/utils';
 import {saveTextToFile} from '../utils/file';
 
@@ -13,6 +12,7 @@ const Header = () => {
     setStroke,
     setColor,
     setStrokeWidth,
+    history,
   } = useDrawingContext();
 
   /**
@@ -35,7 +35,12 @@ const Header = () => {
         height: canvasInfo.height,
       });
       // save the svg as a timestamp file with YYYY-MM-DD-HH-MM-SS format
-      saveTextToFile(svg, new Date().toISOString().replace(/:/g, '-'));
+      saveTextToFile(
+        svg,
+        `${new Date().toISOString().replace(/:/g, '-')}.svg`,
+      ).then(ret => {
+        console.log(`saved to ${ret}`);
+      });
     }
   };
 
