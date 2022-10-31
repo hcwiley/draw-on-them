@@ -1277,8 +1277,9 @@
   resolved "https://registry.yarnpkg.com/@react-native/polyfills/-/polyfills-2.0.0.tgz#4c40b74655c83982c8cf47530ee7dc13d957b6aa"
   integrity sha512-K0aGNn1TjalKj+65D7ycc1//H9roAQ51GJVk5ZJQFb2teECGmzd86bYDC0aYdbRf7gtovescq4Zt6FR0tgXiHQ==
 
-"@shopify/react-native-skia@file:../react-native-skia/dist/package":
+"@shopify/react-native-skia@https://github.com/hcwiley/react-native-skia/releases/download/0.1.157/shopify-react-native-skia-0.1.157.tgz":
   version "0.1.157"
+  resolved "https://github.com/hcwiley/react-native-skia/releases/download/0.1.157/shopify-react-native-skia-0.1.157.tgz#a1a6eaae5ede544513b225dd2a86fdd51cfe2fa1"
   dependencies:
     canvaskit-wasm "0.36.1"
     react-reconciler "^0.27.0"
@@ -5711,6 +5712,11 @@ react-native-gradle-plugin@^0.70.3:
   version "0.70.3"
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz#cbcf0619cbfbddaa9128701aa2d7b4145f9c4fc8"
   integrity sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A==
+
+react-native-toast-notifications@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-toast-notifications/-/react-native-toast-notifications-3.3.1.tgz#c3d6f3b63a4df81c2912560d27878ea056672981"
+  integrity sha512-yc1Q2nOdIYvAf0GAIlmg8q42hiwpEHnLxkxJ6P+tN6jpcKZ1qzMXlgnmNdyF9cm9VOyHQexEP8952IKNAv1Olw==
 
 react-native-uuid@^2.0.1:
   version "2.0.1"

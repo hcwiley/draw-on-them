@@ -1,5 +1,6 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {Alert, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {useToast} from 'react-native-toast-notifications';
 import {useDrawingContext} from '../store';
 import utils from '../drawing/utils';
 import {saveTextToFile} from '../utils/file';
@@ -14,6 +15,8 @@ const Header = () => {
     setStrokeWidth,
     history,
   } = useDrawingContext();
+
+  const toast = useToast();
 
   /**
    * Reset the canvas & draw state
@@ -35,12 +38,23 @@ const Header = () => {
         height: canvasInfo.height,
       });
       // save the svg as a timestamp file with YYYY-MM-DD-HH-MM-SS format
-      saveTextToFile(
-        svg,
-        `${new Date().toISOString().replace(/:/g, '-')}.svg`,
-      ).then(ret => {
-        console.log(`saved to ${ret}`);
-      });
+      let fileName = `${new Date().toISOString().replace(/:/g, '-')}.svg`;
+      // regex to remove the milliseconds from the timestamp
+      fileName = fileName.replace(/(\.\d{3})/, '');
+      saveTextToFile(svg, fileName)
+        .then(ret => {
+          console.log(`saved to ${fileName}`);
+          toast.show(`Saved ${fileName}`, {
+            type: 'success',
+          });
+        })
+        .catch(err => {
+          // alert the user the file could not be saved
+          console.info(`Error saving file: ${err}`);
+          toast.show(`Error saving file!`, {
+            type: 'danger',
+          });
+        });
     }
   };
 

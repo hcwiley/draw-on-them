@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { AppRegistry } from 'react-native';
+import { ToastProvider } from 'react-native-toast-notifications'
 
 import App from './App';
 import { name as appName } from './app.json';
@@ -19,6 +20,20 @@ const composeProviders =
           <Child {...props} />,
         );
 
-const WrappedApp = composeProviders(DrawingProvider)(App);
+const WrappedApp = () => {
+  return (
+    <DrawingProvider>
+      <ToastProvider
+        placement='bottom'
+        duration={2500}
+        animationType='slide-in'
+        offsetBottom={40}
+        swipeEnabled={true}
+      >
+        <App />
+      </ToastProvider>
+    </DrawingProvider>
+  );
+};
 
 AppRegistry.registerComponent(appName, () => WrappedApp);

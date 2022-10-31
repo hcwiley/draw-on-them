@@ -101,7 +101,7 @@ const Drawing = () => {
 
   const updatePaths = () => {
     // if (!currentPath.current) return;
-    setCompletedPaths(_completedPaths => {
+    setCompletedPaths((_completedPaths: [{}]) => {
       const updatedPaths = _completedPaths.slice();
       console.log(`updatedPaths: ${updatedPaths.length}`);
       updatedPaths.push({
