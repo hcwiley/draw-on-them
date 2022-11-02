@@ -7,7 +7,7 @@ import {useToast} from 'react-native-toast-notifications';
 import _ from 'lodash';
 
 import Toolbar from './toolbar';
-import {useDrawingContext} from '../store';
+import {CurrentPath, useDrawingContext} from '../store';
 import utils from '../drawing/utils';
 import fileUtils from '../utils/file';
 
@@ -73,8 +73,8 @@ const Header = () => {
         })
         .then(() => fileUtils.mkdir(dirPath))
         .then(() => {
-          let completedPathsJson = [];
-          completedPaths.forEach(pathObj => {
+          let completedPathsJson: CurrentPath[] = [];
+          completedPaths.forEach((pathObj: CurrentPath) => {
             completedPathsJson.push(pathObj.path.toCmds());
           });
           return fileUtils.writeFile(
