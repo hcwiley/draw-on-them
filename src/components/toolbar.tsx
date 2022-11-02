@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Color from '../components/color';
 import Stroke from '../components/stroke';
 import {useDrawingContext} from '../store';
@@ -21,29 +22,41 @@ const Toolbar = () => {
     setStroke(utils.getPaint(2, color));
   };
 
+  const undo = () => {
+    history.undo();
+  };
+
+  const redo = () => {
+    history.redo();
+  };
+
   return (
     <>
-      {showStrokes && (
+      <View style={styles.toolbar}>
         <View
-          style={[
-            styles.toolbar,
-            {
-              bottom: 80,
-              position: 'absolute',
-            },
-          ]}>
-          {constants.strokes.map(_stroke => (
-            <Stroke
-              key={_stroke}
-              stroke={_stroke}
-              color={getColor('hex')}
-              onPress={() => onStrokeChange(_stroke)}
-            />
-          ))}
-        </View>
-      )}
+          style={{
+            flexDirection: 'row',
+          }}>
+          <Icon.Button
+            name="undo"
+            onPress={undo}
+            color={'black'}
+            backgroundColor={'transparent'}
+            style={[styles.button, {marginRight: 10}]}
+          />
 
-      <View style={[styles.toolbar, {position: 'absolute', marginVertical: 2}]}>
+          <Icon.Button
+            name="redo"
+            onPress={redo}
+            activeOpacity={0.6}
+            color={'black'}
+            style={styles.button}
+          />
+        </View>
+
+        {/* Vertical separator */}
+        <View style={styles.verticalSeparator} />
+
         <View
           style={{
             backgroundColor: '#f7f7f7',
@@ -61,6 +74,27 @@ const Toolbar = () => {
               }}
             />
           )}
+          {showStrokes && (
+            <View
+              style={[
+                styles.toolbar,
+                {
+                  position: 'absolute',
+                  top: 50,
+                  height: 50,
+                  width: 300,
+                },
+              ]}>
+              {constants.strokes.map(_stroke => (
+                <Stroke
+                  key={_stroke}
+                  stroke={_stroke}
+                  color={getColor('hex')}
+                  onPress={() => onStrokeChange(_stroke)}
+                />
+              ))}
+            </View>
+          )}
 
           <Stroke
             stroke={getStrokeWidth()}
@@ -69,14 +103,7 @@ const Toolbar = () => {
           />
         </View>
 
-        <View
-          style={{
-            height: 30,
-            borderWidth: 1,
-            borderColor: '#f0f0f0',
-            marginHorizontal: 10,
-          }}
-        />
+        <View style={styles.verticalSeparator} />
 
         {constants.colors.map(item => (
           <Color key={item} color={item} onPress={() => onChangeColor(item)} />
@@ -91,14 +118,16 @@ export default Toolbar;
 const styles = StyleSheet.create({
   toolbar: {
     backgroundColor: '#ffffff',
-    height: 50,
-    width: 300,
+    height: '80%',
     borderRadius: 100,
     flexDirection: 'row',
     paddingHorizontal: 12,
     justifyContent: 'center',
     alignItems: 'center',
     ...utils.getElevation(5),
+  },
+  button: {
+    backgroundColor: '#ffffff',
   },
   color: {
     width: 35,
@@ -110,5 +139,11 @@ const styles = StyleSheet.create({
     ...utils.getElevation(1),
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  verticalSeparator: {
+    height: 30,
+    borderWidth: 1,
+    borderColor: '#f0f0f0',
+    marginHorizontal: 20,
   },
 });

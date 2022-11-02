@@ -1,13 +1,16 @@
 import RNFS from 'react-native-fs';
+import ImageResizer from '@bam.tech/react-native-image-resizer';
 
 /**
- * Function to save text to a file
- */
-export const saveTextToFile = (
-  text: string,
-  fileName: string,
-  encoding: string = 'utf8',
-) => {
-  const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-  return RNFS.writeFile(path, text, encoding);
+ *  slugify function to remove non-word chars
+ *  */
+const slugify = (text: string) => text.replace(/[\W]/gi, '-');
+
+const sketchImageDir = `${RNFS.DocumentDirectoryPath}/sketches`;
+
+export default {
+  slugify,
+  createResizedImage: ImageResizer.createResizedImage,
+  sketchImageDir,
+  ...RNFS,
 };

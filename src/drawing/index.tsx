@@ -2,6 +2,9 @@ import {
   useValue,
   Canvas,
   Circle,
+  Group,
+  Image as CanvasImage,
+  useImage,
   ExtendedTouchInfo,
   Path,
   Skia,
@@ -13,16 +16,30 @@ import {
   useTouchHandler,
 } from '@shopify/react-native-skia';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
+import uuid from 'react-native-uuid';
 import {
   Alert,
   LayoutChangeEvent,
   SafeAreaView,
   useWindowDimensions,
   View,
+  Image,
 } from 'react-native';
 import {useDrawingContext} from '../store';
 import Header from '../components/header';
-import Toolbar from '../components/toolbar';
+
+const defaultBackgroundImage_path =
+  'https://collectionapi.metmuseum.org/api/collection/v1/iiif/436528/1447063/main-image';
+
+const defaultBackgroundImage = {
+  uuid: uuid.v4(),
+  name: 'Irises',
+  ext: 'jpg',
+  // sourceUrl: '../assets/canvasBackgrounds/Irises.jpg',
+  sourceUrl: defaultBackgroundImage_path,
+  image: null,
+};
+// sourceUrl: 'https://www.metmuseum.org/art/collection/search/436528',
 
 const Drawing = () => {
   const touchState = useRef(false);
@@ -30,11 +47,6 @@ const Drawing = () => {
   const curX = useValue(0);
   const curY = useValue(0);
   const {width} = useWindowDimensions();
-  // const [completedPaths, setCompletedPaths] = useState([]);
-  // const completedPaths = useDrawingContext(state => state.completedPaths);
-  // const setCompletedPaths = useDrawingContext(state => state.setCompletedPaths);
-  // const stroke = useDrawingContext(state => state.stroke);
-  // const strokeWidth = useDrawingContext(state => state.strokeWidth);
   const [canvasHeight, setCanvasHeight] = useState(400);
   const {
     history,
@@ -44,7 +56,20 @@ const Drawing = () => {
     getStrokeWidth,
     getColor,
     setCanvasInfo,
+    canvasOpacity,
+    backgroundOpacity,
+    backgroundImage,
+    setBackgroundImage,
   } = useDrawingContext();
+
+  useEffect(() => {
+      setBackgroundImage(defaultBackgroundImage);
+  }, []);
+
+  // let drawableBackgroundImage = null;
+  // if (backgroundImage?.localCachePath) {
+  //   drawableBackgroundImage = useImage(`uri://${backgroundImage.localCachePath}`);
+  // }
 
   const onDrawingActive = useCallback(
     (touchInfo: ExtendedTouchInfo) => {
@@ -103,7 +128,7 @@ const Drawing = () => {
     // if (!currentPath.current) return;
     setCompletedPaths((_completedPaths: [{}]) => {
       const updatedPaths = _completedPaths.slice();
-      console.log(`updatedPaths: ${updatedPaths.length}`);
+      // console.log(`updatedPaths: ${updatedPaths.length}`);
       updatedPaths.push({
         path: skiaPath.current.path.copy(),
         paint: skiaPath.current.paint.copy(),
@@ -144,8 +169,6 @@ const Drawing = () => {
           flex: 1,
           alignItems: 'center',
         }}>
-        <Header />
-
         <View
           onLayout={onLayout}
           style={{
@@ -160,38 +183,62 @@ const Drawing = () => {
             onDraw={onDraw}
             style={{height: canvasHeight, width: width - 24, zIndex: 10}}
           />
-
+          {backgroundImage?.localCachePath && (
+            <Image
+              style={{
+                opacity: backgroundOpacity,
+                position: 'absolute',
+                top: '10%',
+                left: '10%',
+                right: '10%',
+                bottom: '10%',
+                resizeMode: 'contain',
+              }}
+              source={{uri: `${backgroundImage.localCachePath}`}}
+            />
+          )}
           <Canvas
             style={{
               height: canvasHeight,
               width: width - 24,
               position: 'absolute',
             }}>
-            <Circle r={3} cx={curX} cy={curY} color="#fff0" />
-            {completedPaths?.map(pathObj => (
-              <Path
-                key={pathObj.uuid}
-                path={pathObj.path}
-                strokeWidth={pathObj.paint.getStrokeWidth()}
-                color={pathObj.paint.getColor()}
-                style="stroke"
-              />
-            ))}
-            {skiaPath && skiaPath.current && (
-              <Path
-                key={'current-path'}
-                path={Selector(skiaPath, state => state.path)}
-                //@ts-ignore
-                strokeWidth={Selector(skiaPath, state => getStrokeWidth())}
-                color={Selector(skiaPath, state => getColor())}
-                // color={Selector(skiaPath, state => '#f00')}
-                style="stroke"
-              />
-            )}
+            <Group opacity={backgroundOpacity}>
+              {/* {backgroundImage?.localCachePath && drawableBackgroundImage && (
+                <CanvasImage
+                  image={drawableBackgroundImage}
+                  fit="contain"
+                  x={width * 0.1}
+                  y={canvasHeight * 0.1 - 20}
+                  width={width * 0.8}
+                  height={canvasHeight * 0.8}
+                />
+              )} */}
+            </Group>
+            <Group opacity={canvasOpacity}>
+              <Circle r={3} cx={curX} cy={curY} color="#fff0" />
+              {completedPaths?.map(pathObj => (
+                <Path
+                  key={pathObj.uuid}
+                  path={pathObj.path}
+                  strokeWidth={pathObj.paint.getStrokeWidth()}
+                  color={pathObj.paint.getColor()}
+                  style="stroke"
+                />
+              ))}
+              {skiaPath && skiaPath.current && (
+                <Path
+                  key={'current-path'}
+                  path={Selector(skiaPath, state => state.path)}
+                  strokeWidth={Selector(skiaPath, state => getStrokeWidth())}
+                  color={Selector(skiaPath, state => getColor())}
+                  style="stroke"
+                />
+              )}
+            </Group>
           </Canvas>
+          {backgroundImage && <Header />}
         </View>
-
-        <Toolbar />
       </View>
     </SafeAreaView>
   );

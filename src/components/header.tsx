@@ -1,9 +1,15 @@
-import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import CheckBox from '@react-native-community/checkbox';
+import Slider from '@react-native-community/slider';
+import React, {useState} from 'react';
 import {Alert, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {useToast} from 'react-native-toast-notifications';
+import _ from 'lodash';
+
+import Toolbar from './toolbar';
 import {useDrawingContext} from '../store';
 import utils from '../drawing/utils';
-import {saveTextToFile} from '../utils/file';
+import fileUtils from '../utils/file';
 
 const Header = () => {
   const {
@@ -14,19 +20,37 @@ const Header = () => {
     setColor,
     setStrokeWidth,
     history,
+    backgroundImage,
+    canvasOpacity,
+    setCanvasOpacity,
+    backgroundOpacity,
+    setBackgroundOpacity,
   } = useDrawingContext();
-
+  const [canvasOpacityToggle, setCanvasOpacityToggle] = useState(false);
   const toast = useToast();
 
   /**
    * Reset the canvas & draw state
    */
   const reset = () => {
-    setCompletedPaths([]);
-    setStroke(utils.getPaint(2, 'black'));
-    setColor('black');
-    setStrokeWidth(2);
-    history.clear();
+    Alert.alert(`Reset`, `Are you sure you want to reset the canvas?`, [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: 'Reset',
+        style: 'destructive',
+        onPress: () => {
+          setCompletedPaths([]);
+          setStroke(utils.getPaint(2, 'black'));
+          setColor('black');
+          setStrokeWidth(2);
+          history.clear();
+        },
+      },
+    ]);
   };
 
   const save = () => {
@@ -37,20 +61,41 @@ const Header = () => {
         width: canvasInfo.width,
         height: canvasInfo.height,
       });
-      // save the svg as a timestamp file with YYYY-MM-DD-HH-MM-SS format
-      let fileName = `${new Date().toISOString().replace(/:/g, '-')}.svg`;
-      // regex to remove the milliseconds from the timestamp
-      fileName = fileName.replace(/(\.\d{3})/, '');
-      saveTextToFile(svg, fileName)
+
+      const {basename, dirPath} = backgroundImage;
+      fileUtils
+        .exists(dirPath)
+        .then(exists => {
+          // clear the dir if it exists
+          if (exists) {
+            fileUtils.unlink(dirPath);
+          }
+        })
+        .then(() => fileUtils.mkdir(dirPath))
+        .then(() => {
+          let completedPathsJson = [];
+          completedPaths.forEach(pathObj => {
+            completedPathsJson.push(pathObj.path.toCmds());
+          });
+          return fileUtils.writeFile(
+            `${dirPath}/${basename}-paths.json`,
+            JSON.stringify(completedPathsJson),
+          );
+        })
+        .then(() => fileUtils.writeFile(`${dirPath}/${basename}.svg`, svg))
+        .then(() => {
+          return fileUtils.copyFile(
+            backgroundImage.localCachePath,
+            `${dirPath}/${basename}.jpg`,
+          );
+        })
         .then(ret => {
-          console.log(`saved to ${fileName}`);
-          toast.show(`Saved ${fileName}`, {
+          toast.show(`Saved ${basename}`, {
             type: 'success',
           });
         })
         .catch(err => {
-          // alert the user the file could not be saved
-          console.info(`Error saving file: ${err}`);
+          console.warn('error creating dir', err);
           toast.show(`Error saving file!`, {
             type: 'danger',
           });
@@ -58,13 +103,10 @@ const Header = () => {
     }
   };
 
-  const undo = () => {
-    history.undo();
+  const setOpacity = (val: number) => {
+    canvasOpacityToggle ? setCanvasOpacity(val) : setBackgroundOpacity(val);
   };
 
-  const redo = () => {
-    history.redo();
-  };
   return (
     <View
       style={{
@@ -74,26 +116,13 @@ const Header = () => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        backgroundColor: '#ccc',
       }}>
-      <View
-        style={{
-          flexDirection: 'row',
-        }}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={undo}
-          style={[styles.button, {marginRight: 10}]}>
-          <Text style={styles.buttonText}>Undo</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={redo}
-          activeOpacity={0.6}
-          style={styles.button}>
-          <Text style={styles.buttonText}>Redo</Text>
-        </TouchableOpacity>
-      </View>
-
       <View
         style={{
           flexDirection: 'row',
@@ -112,6 +141,60 @@ const Header = () => {
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View>
+
+      <Toolbar />
+
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            position: 'absolute',
+            textAlign: 'center',
+            width: '100%',
+            top: -5,
+            color: '#333',
+            fontSize: 10,
+            fontVariant: ['small-caps'],
+          }}>
+          opacity
+        </Text>
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            alignSelf: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={newValue => setCanvasOpacityToggle(prev => !prev)}>
+          <Icon size={30} name={canvasOpacityToggle ? 'pen-fancy' : 'image'} />
+        </TouchableOpacity>
+        <Slider
+          style={{width: 200, height: 40}}
+          minimumValue={0}
+          maximumValue={1}
+          value={1}
+          // NOTE: don't do this as it creates lots of chugging from re-renders
+          // value={canvasOpacityToggle ? canvasOpacity : backgroundOpacity}
+          minimumTrackTintColor="#FFFFFF"
+          maximumTrackTintColor="#000000"
+          onSlidingComplete={setOpacity}
+          onValueChange={val => {
+            // throttle the value change to allow ui updates
+            _.throttle(() => {
+              setOpacity(val);
+            }, 30)();
+          }}
+        />
+      </View>
+
+      {/* Icon for hamburger settings menu */}
+      <Icon.Button
+        name="bars"
+        size={20}
+        color="black"
+        backgroundColor="transparent"
+        onPress={() => {
+          toast.show('Settings menu coming soon!');
+        }}
+      />
     </View>
   );
 };
