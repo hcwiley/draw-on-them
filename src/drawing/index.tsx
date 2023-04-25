@@ -29,11 +29,13 @@ import {useDrawingContext} from '../store';
 import Header from '../components/header';
 
 const defaultBackgroundImage_path =
-  'https://collectionapi.metmuseum.org/api/collection/v1/iiif/436528/1447063/main-image';
+  // 'https://collectionapi.metmuseum.org/api/collection/v1/iiif/436528/1447063/main-image';
+  'https://collectionapi.metmuseum.org/api/collection/v1/iiif/483438/1016551/main-image';
 
 const defaultBackgroundImage = {
   uuid: uuid.v4(),
-  name: 'Irises',
+  // name: 'Irises',
+  name: 'Egon Schiele_Self-portrait',
   ext: 'jpg',
   // sourceUrl: '../assets/canvasBackgrounds/Irises.jpg',
   sourceUrl: defaultBackgroundImage_path,
@@ -63,7 +65,7 @@ const Drawing = () => {
   } = useDrawingContext();
 
   useEffect(() => {
-      setBackgroundImage(defaultBackgroundImage);
+    setBackgroundImage(defaultBackgroundImage);
   }, []);
 
   // let drawableBackgroundImage = null;
