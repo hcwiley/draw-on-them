@@ -53,6 +53,8 @@ export const useDrawingStore = () => {
   const [backgroundOpacity, setBackgroundOpacity] = useState(1.0);
   const [backgroundImage, setBackgroundImage] = useState<BackgroundImage>({});
 
+  const [usePencil, setUsePencil] = useState(true);
+
   const history: {
     undo: CurrentPath[];
     redo: CurrentPath[];
@@ -106,7 +108,11 @@ export const useDrawingStore = () => {
       }
     },
     getStrokeWidth: () => (stroke ? stroke.getStrokeWidth() : 3),
-    setColor: (color: string) => stroke.setColor(color),
+    setColor: (color: string) => {
+      console.log(`setting color to ${color}`);
+      // debugger
+      stroke.setColor(Skia.Color(color));
+    },
     setStrokeWidth: (width: number) => stroke.setStrokeWidth(width),
     canvasInfo,
     setCanvasInfo,
@@ -141,5 +147,7 @@ export const useDrawingStore = () => {
       push,
       clear,
     },
+    setUsePencil,
+    usePencil,
   };
 };

@@ -62,6 +62,7 @@ const Drawing = () => {
     backgroundOpacity,
     backgroundImage,
     setBackgroundImage,
+    usePencil,
   } = useDrawingContext();
 
   useEffect(() => {
@@ -73,6 +74,10 @@ const Drawing = () => {
   //   drawableBackgroundImage = useImage(`uri://${backgroundImage.localCachePath}`);
   // }
 
+  const validTouch = (touchInfo: TouchInfo) =>
+    (usePencil && touchInfo.toolType == ToolType.Pencil) ||
+    (!usePencil && touchInfo.toolType == ToolType.Touch);
+
   const onDrawingActive = useCallback(
     (touchInfo: ExtendedTouchInfo) => {
       // console.log(`onDrawingActive`);
@@ -82,39 +87,39 @@ const Drawing = () => {
       curX.current = x;
       curY.current = y;
 
-      if (touchInfo.toolType == ToolType.Pencil && touchState.current) {
+      if (validTouch(touchInfo) && touchState.current) {
         skiaPath.current.path.lineTo(x, y);
       }
     },
-    [stroke],
+    [stroke, usePencil],
   );
 
   const onDrawingStart = useCallback(
     (touchInfo: TouchInfo) => {
-      // console.log(`onDrawingStart`);
+      console.log(`onDrawingStart usePencil: ${usePencil}`, JSON.stringify(touchInfo, null, 2));
       // only respond to pencil for drawing
-      if (touchInfo.toolType != ToolType.Pencil) return;
+      if (validTouch(touchInfo)) {
+        const {x, y} = touchInfo;
+        touchState.current = true;
 
-      const {x, y} = touchInfo;
-      touchState.current = true;
-
-      skiaPath.current.path.reset();
-      skiaPath.current.path.moveTo(x, y);
-      skiaPath.current.paint.reset();
-      skiaPath.current.paint = stroke.copy();
+        skiaPath.current.path.reset();
+        skiaPath.current.path.moveTo(x, y);
+        skiaPath.current.paint.reset();
+        skiaPath.current.paint = stroke.copy();
+      }
     },
-    [stroke],
+    [stroke, usePencil],
   );
 
   const onDrawingFinished = useCallback(
     (touchInfo: TouchInfo) => {
       // console.log(`onDrawingFinished`);
 
-      if (touchInfo.toolType == ToolType.Pencil) updatePaths();
+      if (validTouch(touchInfo)) updatePaths();
       skiaPath.current.path.reset();
       touchState.current = false;
     },
-    [completedPaths.length],
+    [completedPaths.length, usePencil],
   );
 
   const touchHandler = useTouchHandler(
@@ -123,7 +128,7 @@ const Drawing = () => {
       onStart: onDrawingStart,
       onEnd: onDrawingFinished,
     },
-    [stroke],
+    [stroke, usePencil],
   );
 
   const updatePaths = () => {
@@ -153,7 +158,8 @@ const Drawing = () => {
       //   // canvas.current = _canvas;
       // }
     },
-    [stroke],
+    // rebind the callback when the stroke or usePencil changes
+    [stroke, usePencil],
   );
 
   const onLayout = (event: LayoutChangeEvent) => {

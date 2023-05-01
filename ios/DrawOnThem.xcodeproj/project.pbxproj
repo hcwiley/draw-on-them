@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* tryskiaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* tryskiaTests.m */; };
+		00E356F31AD99517003FC87E /* DrawOnThemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DrawOnThemTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		19482B664FE47A157147E5C4 /* libPods-tryskia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839659ACFB680783879FF70B /* libPods-tryskia.a */; };
+		19482B664FE47A157147E5C4 /* libPods-DrawOnThem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839659ACFB680783879FF70B /* libPods-DrawOnThem.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		98157178C3D5BE5C99636F1A /* libPods-tryskia-tryskiaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40515F83B11F1BACD33003F0 /* libPods-tryskia-tryskiaTests.a */; };
+		98157178C3D5BE5C99636F1A /* libPods-DrawOnThem-DrawOnThemTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40515F83B11F1BACD33003F0 /* libPods-DrawOnThem-DrawOnThemTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,25 +22,25 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = tryskia;
+			remoteInfo = DrawOnThem;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* DrawOnThemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawOnThemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* tryskiaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tryskiaTests.m; sourceTree = "<group>"; };
-		0DE8128579B525FE843268AC /* Pods-tryskia-tryskiaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tryskia-tryskiaTests.debug.xcconfig"; path = "Target Support Files/Pods-tryskia-tryskiaTests/Pods-tryskia-tryskiaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* DrawOnThemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawOnThemTests.m; sourceTree = "<group>"; };
+		0DE8128579B525FE843268AC /* Pods-DrawOnThem-DrawOnThemTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawOnThem-DrawOnThemTests.debug.xcconfig"; path = "Target Support Files/Pods-DrawOnThem-DrawOnThemTests/Pods-DrawOnThem-DrawOnThemTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* DrawOnThem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawOnThem.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = tryskia/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = tryskia/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tryskia/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = tryskia/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = tryskia/main.m; sourceTree = "<group>"; };
-		3075301A2C6AB4252FC45C57 /* Pods-tryskia-tryskiaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tryskia-tryskiaTests.release.xcconfig"; path = "Target Support Files/Pods-tryskia-tryskiaTests/Pods-tryskia-tryskiaTests.release.xcconfig"; sourceTree = "<group>"; };
-		40515F83B11F1BACD33003F0 /* libPods-tryskia-tryskiaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tryskia-tryskiaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = tryskia/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		839659ACFB680783879FF70B /* libPods-tryskia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tryskia.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = DrawOnThem/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = DrawOnThem/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DrawOnThem/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DrawOnThem/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DrawOnThem/main.m; sourceTree = "<group>"; };
+		3075301A2C6AB4252FC45C57 /* Pods-DrawOnThem-DrawOnThemTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawOnThem-DrawOnThemTests.release.xcconfig"; path = "Target Support Files/Pods-DrawOnThem-DrawOnThemTests/Pods-DrawOnThem-DrawOnThemTests.release.xcconfig"; sourceTree = "<group>"; };
+		40515F83B11F1BACD33003F0 /* libPods-DrawOnThem-DrawOnThemTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DrawOnThem-DrawOnThemTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = DrawOnThem/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		839659ACFB680783879FF70B /* libPods-DrawOnThem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DrawOnThem.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A58C442B291020060061E595 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		A58C442C291020060061E595 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		A58C442D291020060061E595 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -57,8 +57,8 @@
 		A58C4438291020060061E595 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		A58C4439291020060061E595 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		A58C443A291020060061E595 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
-		BAC2EACD55B1CA2C342F834E /* Pods-tryskia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tryskia.release.xcconfig"; path = "Target Support Files/Pods-tryskia/Pods-tryskia.release.xcconfig"; sourceTree = "<group>"; };
-		D246A0263E0B1169DE39D0ED /* Pods-tryskia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tryskia.debug.xcconfig"; path = "Target Support Files/Pods-tryskia/Pods-tryskia.debug.xcconfig"; sourceTree = "<group>"; };
+		BAC2EACD55B1CA2C342F834E /* Pods-DrawOnThem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawOnThem.release.xcconfig"; path = "Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem.release.xcconfig"; sourceTree = "<group>"; };
+		D246A0263E0B1169DE39D0ED /* Pods-DrawOnThem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawOnThem.debug.xcconfig"; path = "Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98157178C3D5BE5C99636F1A /* libPods-tryskia-tryskiaTests.a in Frameworks */,
+				98157178C3D5BE5C99636F1A /* libPods-DrawOnThem-DrawOnThemTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,20 +75,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19482B664FE47A157147E5C4 /* libPods-tryskia.a in Frameworks */,
+				19482B664FE47A157147E5C4 /* libPods-DrawOnThem.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* tryskiaTests */ = {
+		00E356EF1AD99517003FC87E /* DrawOnThemTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* tryskiaTests.m */,
+				00E356F21AD99517003FC87E /* DrawOnThemTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = tryskiaTests;
+			path = DrawOnThemTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -99,7 +99,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* tryskia */ = {
+		13B07FAE1A68108700A75B9A /* DrawOnThem */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -109,15 +109,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = tryskia;
+			name = DrawOnThem;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				839659ACFB680783879FF70B /* libPods-tryskia.a */,
-				40515F83B11F1BACD33003F0 /* libPods-tryskia-tryskiaTests.a */,
+				839659ACFB680783879FF70B /* libPods-DrawOnThem.a */,
+				40515F83B11F1BACD33003F0 /* libPods-DrawOnThem-DrawOnThemTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -125,10 +125,10 @@
 		67BF3D30A0D7A3B4CEA58422 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D246A0263E0B1169DE39D0ED /* Pods-tryskia.debug.xcconfig */,
-				BAC2EACD55B1CA2C342F834E /* Pods-tryskia.release.xcconfig */,
-				0DE8128579B525FE843268AC /* Pods-tryskia-tryskiaTests.debug.xcconfig */,
-				3075301A2C6AB4252FC45C57 /* Pods-tryskia-tryskiaTests.release.xcconfig */,
+				D246A0263E0B1169DE39D0ED /* Pods-DrawOnThem.debug.xcconfig */,
+				BAC2EACD55B1CA2C342F834E /* Pods-DrawOnThem.release.xcconfig */,
+				0DE8128579B525FE843268AC /* Pods-DrawOnThem-DrawOnThemTests.debug.xcconfig */,
+				3075301A2C6AB4252FC45C57 /* Pods-DrawOnThem-DrawOnThemTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -144,9 +144,9 @@
 			isa = PBXGroup;
 			children = (
 				A58C442929101FF00061E595 /* Resources */,
-				13B07FAE1A68108700A75B9A /* tryskia */,
+				13B07FAE1A68108700A75B9A /* DrawOnThem */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* tryskiaTests */,
+				00E356EF1AD99517003FC87E /* DrawOnThemTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				67BF3D30A0D7A3B4CEA58422 /* Pods */,
@@ -217,7 +217,7 @@
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
 			name = DrawOnThemTests;
-			productName = tryskiaTests;
+			productName = DrawOnThemTests;
 			productReference = 00E356EE1AD99517003FC87E /* DrawOnThemTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -239,7 +239,7 @@
 			dependencies = (
 			);
 			name = DrawOnThem;
-			productName = tryskia;
+			productName = DrawOnThem;
 			productReference = 13B07F961A680F5B00A75B9A /* DrawOnThem.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -328,7 +328,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-tryskia-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DrawOnThem-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -341,15 +341,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tryskia-tryskiaTests/Pods-tryskia-tryskiaTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem-DrawOnThemTests/Pods-DrawOnThem-DrawOnThemTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tryskia-tryskiaTests/Pods-tryskia-tryskiaTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem-DrawOnThemTests/Pods-DrawOnThem-DrawOnThemTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tryskia-tryskiaTests/Pods-tryskia-tryskiaTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem-DrawOnThemTests/Pods-DrawOnThem-DrawOnThemTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2311151DC4970C223E958A4A /* [CP] Embed Pods Frameworks */ = {
@@ -358,15 +358,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tryskia-tryskiaTests/Pods-tryskia-tryskiaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem-DrawOnThemTests/Pods-DrawOnThem-DrawOnThemTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tryskia-tryskiaTests/Pods-tryskia-tryskiaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem-DrawOnThemTests/Pods-DrawOnThem-DrawOnThemTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tryskia-tryskiaTests/Pods-tryskia-tryskiaTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem-DrawOnThemTests/Pods-DrawOnThem-DrawOnThemTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2CFB725ED065EEB2FE3FB054 /* [CP] Copy Pods Resources */ = {
@@ -375,15 +375,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tryskia/Pods-tryskia-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tryskia/Pods-tryskia-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tryskia/Pods-tryskia-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		53311132CF3D6FCA4A28A24E /* [CP] Embed Pods Frameworks */ = {
@@ -392,15 +392,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tryskia/Pods-tryskia-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-tryskia/Pods-tryskia-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tryskia/Pods-tryskia-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E7FB5C159FEC9BEFA6BBD800 /* [CP] Check Pods Manifest.lock */ = {
@@ -418,7 +418,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-tryskia-tryskiaTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DrawOnThem-DrawOnThemTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -451,7 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* tryskiaTests.m in Sources */,
+				00E356F31AD99517003FC87E /* DrawOnThemTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,14 +477,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DE8128579B525FE843268AC /* Pods-tryskia-tryskiaTests.debug.xcconfig */;
+			baseConfigurationReference = 0DE8128579B525FE843268AC /* Pods-DrawOnThem-DrawOnThemTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = tryskiaTests/Info.plist;
+				INFOPLIST_FILE = DrawOnThemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -504,11 +504,11 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3075301A2C6AB4252FC45C57 /* Pods-tryskia-tryskiaTests.release.xcconfig */;
+			baseConfigurationReference = 3075301A2C6AB4252FC45C57 /* Pods-DrawOnThem-DrawOnThemTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = tryskiaTests/Info.plist;
+				INFOPLIST_FILE = DrawOnThemTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -528,14 +528,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D246A0263E0B1169DE39D0ED /* Pods-tryskia.debug.xcconfig */;
+			baseConfigurationReference = D246A0263E0B1169DE39D0ED /* Pods-DrawOnThem.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KJCY8LYF36;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = tryskia/Info.plist;
+				INFOPLIST_FILE = DrawOnThem/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -557,13 +557,13 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAC2EACD55B1CA2C342F834E /* Pods-tryskia.release.xcconfig */;
+			baseConfigurationReference = BAC2EACD55B1CA2C342F834E /* Pods-DrawOnThem.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KJCY8LYF36;
-				INFOPLIST_FILE = tryskia/Info.plist;
+				INFOPLIST_FILE = DrawOnThem/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

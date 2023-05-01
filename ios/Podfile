@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '15.0'
 
-target 'tryskia' do
+target 'DrawOnThem' do
   config = use_native_modules!
 
   use_react_native!(
@@ -12,7 +12,7 @@ target 'tryskia' do
     :hermes_enabled => false
   )
 
-  target 'tryskiaTests' do
+  target 'DrawOnThemTests' do
     inherit! :complete
     # Pods for testing
   end

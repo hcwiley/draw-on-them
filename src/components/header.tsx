@@ -1,4 +1,4 @@
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CheckBox from '@react-native-community/checkbox';
 import Slider from '@react-native-community/slider';
 import React, {useState} from 'react';
@@ -25,6 +25,8 @@ const Header = () => {
     setCanvasOpacity,
     backgroundOpacity,
     setBackgroundOpacity,
+    setUsePencil,
+    usePencil,
   } = useDrawingContext();
   const [canvasOpacityToggle, setCanvasOpacityToggle] = useState(false);
   const toast = useToast();
@@ -144,6 +146,31 @@ const Header = () => {
 
       <Toolbar />
 
+      <View style={{flexDirection: 'column', width: 100}}>
+        <Text
+          style={{
+            position: 'absolute',
+            textAlign: 'center',
+            width: '100%',
+            top: -10,
+            color: '#333',
+            fontSize: 10,
+            fontVariant: ['small-caps'],
+          }}>
+          {usePencil ? 'pencil' : 'touch'}
+        </Text>
+        <View>
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              alignSelf: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={newValue => setUsePencil(prev => !prev)}>
+            <Icon size={30} name={usePencil ? 'pencil' : 'pencil-off'} />
+          </TouchableOpacity>
+        </View>
+      </View>
       <View style={{flexDirection: 'row'}}>
         <Text
           style={{
@@ -164,7 +191,7 @@ const Header = () => {
             justifyContent: 'center',
           }}
           onPress={newValue => setCanvasOpacityToggle(prev => !prev)}>
-          <Icon size={30} name={canvasOpacityToggle ? 'pen-fancy' : 'image'} />
+          <Icon size={30} name={canvasOpacityToggle ? 'draw-pen' : 'image'} />
         </TouchableOpacity>
         <Slider
           style={{width: 200, height: 40}}
@@ -187,7 +214,7 @@ const Header = () => {
 
       {/* Icon for hamburger settings menu */}
       <Icon.Button
-        name="bars"
+        name="menu"
         size={20}
         color="black"
         backgroundColor="transparent"
