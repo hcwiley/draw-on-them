@@ -2,6 +2,9 @@
 #
 .DS_Store
 
+# big assets
+*.zip
+
 # Xcode
 #
 build/
@@ -20,6 +23,7 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+.xcode.env.local
 
 # Android/IntelliJ
 #
