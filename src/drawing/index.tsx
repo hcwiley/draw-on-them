@@ -27,11 +27,22 @@ import {
 } from 'react-native';
 import {useDrawingContext} from '../store';
 import Header from '../components/header';
+import SideMenu from '../components/sidemenu';
 
 const defaultBackgroundImage_path =
   // 'https://collectionapi.metmuseum.org/api/collection/v1/iiif/436528/1447063/main-image';
   'https://collectionapi.metmuseum.org/api/collection/v1/iiif/483438/1016551/main-image';
 
+export const generateBackgroundImage = (defaults: any) => {
+  const {name, sourceUrl} = defaults;
+  return {
+    uuid: uuid.v4(),
+    name: `${name}` || 'Untitled',
+    ext: 'jpg',
+    sourceUrl: sourceUrl || null,
+    image: null,
+  };
+};
 const defaultBackgroundImage = {
   uuid: uuid.v4(),
   // name: 'Irises',
@@ -63,6 +74,8 @@ const Drawing = () => {
     backgroundImage,
     setBackgroundImage,
     usePencil,
+    menuOpen,
+    setMenuOpen,
   } = useDrawingContext();
 
   useEffect(() => {
@@ -96,7 +109,10 @@ const Drawing = () => {
 
   const onDrawingStart = useCallback(
     (touchInfo: TouchInfo) => {
-      console.log(`onDrawingStart usePencil: ${usePencil}`, JSON.stringify(touchInfo, null, 2));
+      console.log(
+        `onDrawingStart usePencil: ${usePencil}`,
+        JSON.stringify(touchInfo, null, 2),
+      );
       // only respond to pencil for drawing
       if (validTouch(touchInfo)) {
         const {x, y} = touchInfo;
@@ -246,6 +262,7 @@ const Drawing = () => {
             </Group>
           </Canvas>
           {backgroundImage && <Header />}
+          <SideMenu />
         </View>
       </View>
     </SafeAreaView>

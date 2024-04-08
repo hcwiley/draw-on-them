@@ -54,6 +54,7 @@ export const useDrawingStore = () => {
   const [backgroundImage, setBackgroundImage] = useState<BackgroundImage>({});
 
   const [usePencil, setUsePencil] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const history: {
     undo: CurrentPath[];
@@ -111,7 +112,7 @@ export const useDrawingStore = () => {
     setColor: (color: string) => {
       console.log(`setting color to ${color}`);
       // debugger
-      stroke.setColor(Skia.Color(color));
+      // stroke.setColor(Skia.Color(color));
     },
     setStrokeWidth: (width: number) => stroke.setStrokeWidth(width),
     canvasInfo,
@@ -149,5 +150,7 @@ export const useDrawingStore = () => {
     },
     setUsePencil,
     usePencil,
+    menuOpen,
+    setMenuOpen,
   };
 };

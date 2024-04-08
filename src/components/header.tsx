@@ -27,6 +27,7 @@ const Header = () => {
     setBackgroundOpacity,
     setUsePencil,
     usePencil,
+    setMenuOpen,
   } = useDrawingContext();
   const [canvasOpacityToggle, setCanvasOpacityToggle] = useState(false);
   const toast = useToast();
@@ -84,6 +85,12 @@ const Header = () => {
             JSON.stringify(completedPathsJson),
           );
         })
+        .then(() =>
+          fileUtils.writeFile(
+            `${dirPath}/${basename}-image-info.json`,
+            JSON.stringify(backgroundImage),
+          ),
+        )
         .then(() => fileUtils.writeFile(`${dirPath}/${basename}.svg`, svg))
         .then(() => {
           return fileUtils.copyFile(
@@ -218,9 +225,7 @@ const Header = () => {
         size={20}
         color="black"
         backgroundColor="transparent"
-        onPress={() => {
-          toast.show('Settings menu coming soon!');
-        }}
+        onPress={() => setMenuOpen(prev => !prev)}
       />
     </View>
   );
