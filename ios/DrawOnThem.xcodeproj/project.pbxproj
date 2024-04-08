@@ -14,6 +14,7 @@
 		19482B664FE47A157147E5C4 /* libPods-DrawOnThem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839659ACFB680783879FF70B /* libPods-DrawOnThem.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		98157178C3D5BE5C99636F1A /* libPods-DrawOnThem-DrawOnThemTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40515F83B11F1BACD33003F0 /* libPods-DrawOnThem-DrawOnThemTests.a */; };
+		A5A0AB202A00C1D0004D1FD6 /* iPhone_14_Pro_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = A5A0AB1F2A00C1D0004D1FD6 /* iPhone_14_Pro_landscape.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		A58C4438291020060061E595 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		A58C4439291020060061E595 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		A58C443A291020060061E595 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		A5A0AB1F2A00C1D0004D1FD6 /* iPhone_14_Pro_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPhone_14_Pro_landscape.png; path = ../src/assets/iPhone_14_Pro_landscape.png; sourceTree = "<group>"; };
 		BAC2EACD55B1CA2C342F834E /* Pods-DrawOnThem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawOnThem.release.xcconfig"; path = "Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem.release.xcconfig"; sourceTree = "<group>"; };
 		D246A0263E0B1169DE39D0ED /* Pods-DrawOnThem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawOnThem.debug.xcconfig"; path = "Target Support Files/Pods-DrawOnThem/Pods-DrawOnThem.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -102,6 +104,7 @@
 		13B07FAE1A68108700A75B9A /* DrawOnThem */ = {
 			isa = PBXGroup;
 			children = (
+				A5A0AB1F2A00C1D0004D1FD6 /* iPhone_14_Pro_landscape.png */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -293,6 +296,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				A5A0AB202A00C1D0004D1FD6 /* iPhone_14_Pro_landscape.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +315,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "set -e\n\nexport NVM_DIR=\"$HOME/.nvm\"\n[ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\" # This loads nvm\n\nnvm use 20\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		10B1C34C1A8FCB15E44BA119 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -532,7 +536,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KJCY8LYF36;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = DrawOnThem/Info.plist;
@@ -561,7 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KJCY8LYF36;
 				INFOPLIST_FILE = DrawOnThem/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
